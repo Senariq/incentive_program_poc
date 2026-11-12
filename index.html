@@ -1,0 +1,1655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ee">
+  <title>From Insight to Outcome | Decision Sciences</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ee;
+      --white: #fffefa;
+      --ink: #172625;
+      --muted: #64716d;
+      --line: #dedfd6;
+      --forest: #153b35;
+      --forest-deep: #102b28;
+      --mint: #c9ef7b;
+      --mint-dark: #9dc850;
+      --coral: #e8866d;
+      --blue: #a9d8dc;
+      --shadow: 0 22px 65px rgb(23 38 37 / 8%);
+      font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--paper); }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline: 3px solid var(--mint-dark);
+      outline-offset: 3px;
+    }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+      padding: 26px 18px 20px;
+      color: #f5f5ec;
+      background: var(--forest-deep);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 5px 35px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 35px;
+      height: 35px;
+      place-items: center;
+      border-radius: 11px;
+      color: var(--forest-deep);
+      background: var(--mint);
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: -.06em;
+    }
+
+    .brand-copy { display: grid; gap: 1px; }
+    .brand-copy strong { font-size: 13px; letter-spacing: .01em; }
+    .brand-copy span {
+      color: #aab9ae;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .nav-label, .side-note-label {
+      margin: 0 10px 11px;
+      color: #8ca29a;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .slide-nav { display: grid; gap: 4px; }
+
+    .nav-item {
+      display: flex;
+      width: 100%;
+      min-height: 43px;
+      align-items: center;
+      gap: 11px;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 8px;
+      color: #c5d0c8;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .nav-item:hover { color: #fffefa; background: rgb(255 255 255 / 7%); }
+    .nav-item[aria-current="step"] { color: var(--ink); background: var(--mint); }
+
+    .nav-num {
+      width: 21px;
+      color: #91a49b;
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 750;
+    }
+
+    .nav-item[aria-current="step"] .nav-num { color: #526548; }
+    .nav-title { font-size: 12px; font-weight: 620; }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgb(255 255 255 / 12%);
+    }
+
+    .draft-note {
+      margin: 0 9px;
+      color: #a7b5ac;
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .workspace {
+      display: grid;
+      min-width: 0;
+      min-height: 100vh;
+      grid-template-rows: 66px 3px minmax(0, 1fr) 68px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 38px;
+      border-bottom: 1px solid var(--line);
+      background: rgb(255 254 250 / 65%);
+    }
+
+    .topbar-context {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .context-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint-dark);
+    }
+
+    .topbar-actions { display: flex; align-items: center; gap: 12px; }
+
+    .draft-chip {
+      padding: 6px 9px;
+      border: 1px solid #e6d4c2;
+      border-radius: 999px;
+      color: #855b40;
+      background: #fff8ec;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .icon-button {
+      display: inline-flex;
+      min-height: 35px;
+      align-items: center;
+      gap: 7px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .icon-button:hover { background: var(--white); }
+
+    .progress-track { height: 3px; background: #e8e8df; }
+    .progress-fill {
+      width: 14.285%;
+      height: 100%;
+      background: var(--mint-dark);
+      transition: width .28s ease;
+    }
+
+    .deck-stage {
+      position: relative;
+      min-height: 0;
+      overflow: auto;
+      scrollbar-color: #c6ccc1 transparent;
+      scrollbar-width: thin;
+    }
+
+    .slide {
+      width: min(1190px, 100%);
+      min-height: 100%;
+      margin: 0 auto;
+      padding: clamp(32px, 5vh, 58px) clamp(28px, 5.2vw, 78px) 48px;
+      animation: arrive .32s ease both;
+    }
+
+    .slide[hidden] { display: none; }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+      color: #60736a;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 19px;
+      height: 2px;
+      background: var(--mint-dark);
+      content: "";
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.045em; }
+    h1 {
+      max-width: 730px;
+      margin-bottom: 20px;
+      font-size: clamp(42px, 5.8vw, 76px);
+      font-weight: 690;
+      line-height: .99;
+    }
+
+    h2 {
+      max-width: 850px;
+      margin-bottom: 15px;
+      font-size: clamp(34px, 4vw, 54px);
+      font-weight: 680;
+      line-height: 1.04;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+      font-weight: 680;
+      line-height: 1.15;
+    }
+
+    .accent { color: #527b36; }
+    .lede {
+      max-width: 620px;
+      margin-bottom: 25px;
+      color: #556560;
+      font-size: clamp(16px, 1.55vw, 19px);
+      line-height: 1.6;
+    }
+
+    .small-copy { color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .micro-copy { color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+    .hero-grid {
+      display: grid;
+      min-height: calc(100vh - 185px);
+      align-items: center;
+      gap: clamp(34px, 5vw, 75px);
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+    }
+
+    .hero-copy { padding: 8px 0 20px; }
+
+    .hero-visual {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      padding: 28px;
+      border-radius: 18px;
+      color: #f4f4e9;
+      background: var(--forest);
+      box-shadow: var(--shadow);
+    }
+
+    .visual-orbit {
+      position: absolute;
+      top: 82px;
+      right: -78px;
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgb(201 239 123 / 25%);
+      border-radius: 50%;
+    }
+
+    .visual-orbit::before, .visual-orbit::after {
+      position: absolute;
+      border: 1px solid rgb(201 239 123 / 20%);
+      border-radius: 50%;
+      content: "";
+      inset: 30px;
+    }
+
+    .visual-orbit::after { inset: 67px; }
+
+    .visual-kicker {
+      position: relative;
+      z-index: 1;
+      color: #bbcfbb;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .pathway {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 13px;
+      margin-top: 27px;
+    }
+
+    .path-step {
+      display: grid;
+      min-height: 58px;
+      align-items: center;
+      gap: 13px;
+      padding: 10px 14px;
+      border: 1px solid rgb(255 255 255 / 17%);
+      border-radius: 10px;
+      background: rgb(255 255 255 / 6%);
+      grid-template-columns: 29px minmax(0, 1fr) auto;
+    }
+
+    .path-step:nth-child(2) { margin-left: 18px; }
+    .path-step:nth-child(3) { margin-left: 36px; }
+
+    .path-index {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--forest-deep);
+      background: var(--mint);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .path-name { font-size: 12px; font-weight: 690; }
+    .path-hint { color: #afc1b4; font-size: 9px; }
+
+    .visual-foot {
+      position: absolute;
+      right: 28px;
+      bottom: 23px;
+      left: 28px;
+      padding-top: 12px;
+      border-top: 1px solid rgb(255 255 255 / 15%);
+      color: #b7c8bb;
+      font-size: 10px;
+    }
+
+    .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+    .primary-button, .secondary-button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 17px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .primary-button { color: var(--forest-deep); background: var(--mint); }
+    .primary-button:hover { background: #d7f69a; transform: translateY(-1px); }
+    .secondary-button { border-color: var(--line); color: var(--ink); background: transparent; }
+    .secondary-button:hover { background: var(--white); }
+    .text-link { color: #456b38; font-size: 11px; font-weight: 730; text-decoration: none; }
+    .text-link:hover { text-decoration: underline; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .section-heading > div:first-child { max-width: 820px; }
+    .section-heading .lede { max-width: 700px; margin-bottom: 0; }
+
+    .section-tag {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border: 1px solid #d5dacd;
+      border-radius: 999px;
+      color: #52634e;
+      background: #eef2e7;
+      font-size: 9px;
+      font-weight: 780;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .understanding-grid {
+      display: grid;
+      align-items: stretch;
+      gap: 18px;
+      grid-template-columns: 1.12fr .88fr;
+    }
+
+    .dark-panel {
+      min-height: 300px;
+      padding: clamp(25px, 3.2vw, 42px);
+      border-radius: 16px;
+      color: #f7f7ef;
+      background: var(--forest);
+    }
+
+    .dark-panel h3 {
+      max-width: 570px;
+      margin: 18px 0;
+      font-size: clamp(25px, 3vw, 37px);
+      font-weight: 560;
+      line-height: 1.17;
+    }
+
+    .dark-panel p { max-width: 480px; color: #c7d3c8; font-size: 13px; line-height: 1.7; }
+    .question-mark {
+      display: inline-grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--forest-deep);
+      background: var(--mint);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .understanding-side { display: grid; gap: 13px; }
+    .mini-card, .content-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+    }
+
+    .mini-card { display: flex; align-items: flex-start; gap: 13px; }
+    .mini-icon {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 9px;
+      color: #456c3b;
+      background: #edf4df;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mini-card h3 { margin: 1px 0 4px; font-size: 14px; letter-spacing: -.02em; }
+    .mini-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+
+    .callout {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 18px;
+      padding: 15px 17px;
+      border-left: 3px solid var(--mint-dark);
+      border-radius: 0 9px 9px 0;
+      background: #edf1e8;
+      color: #45554e;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .callout strong { color: var(--ink); }
+    .signal-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .signal-card {
+      position: relative;
+      display: flex;
+      min-height: 235px;
+      flex-direction: column;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--white);
+    }
+
+    .signal-card:nth-child(2) { background: #eff3e8; }
+    .signal-card:nth-child(3) { color: #f4f5ea; background: var(--forest); }
+    .signal-number {
+      margin-bottom: auto;
+      color: #75945d;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+
+    .signal-card:nth-child(3) .signal-number { color: var(--mint); }
+    .signal-card h3 { margin: 26px 0 9px; }
+    .signal-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .signal-card:nth-child(3) p { color: #c4d1c5; }
+
+    .sample-stats {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sample-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--white);
+    }
+
+    .sample-stat strong {
+      color: #416637;
+      font-size: 19px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.04em;
+    }
+
+    .sample-stat span { color: var(--muted); font-size: 10px; }
+
+    .sample-explorer {
+      display: grid;
+      align-items: stretch;
+      gap: 14px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(250px, .75fr);
+    }
+
+    .sample-chart {
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+    }
+
+    .sample-chart-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .sample-chart-head h3 { margin: 0; font-size: 14px; letter-spacing: -.02em; }
+    .sample-chart-head label { color: var(--muted); font-size: 9px; font-weight: 700; }
+
+    .region-select {
+      min-height: 31px;
+      padding: 0 26px 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: var(--white);
+      font: inherit;
+      font-size: 10px;
+    }
+
+    .sample-bars { display: grid; gap: 10px; }
+    .sample-bar-row { display: grid; gap: 6px; }
+
+    .sample-bar-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #4c5b54;
+      font-size: 10px;
+    }
+
+    .sample-bar-label strong { color: var(--ink); font-size: 10px; font-variant-numeric: tabular-nums; }
+
+    .sample-bar-track {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e9ece3;
+    }
+
+    .sample-bar-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: #8db761;
+      transition: width .25s ease;
+    }
+
+    .sample-bar-row:nth-child(3) .sample-bar-fill,
+    .sample-bar-row:nth-child(8) .sample-bar-fill { background: #dc967c; }
+
+    .sample-insight {
+      display: flex;
+      flex-direction: column;
+      padding: 22px;
+      border-radius: 12px;
+      color: #f5f5ec;
+      background: var(--forest);
+    }
+
+    .sample-insight .method-label { color: var(--mint); }
+    .sample-insight h3 { margin: 8px 0 9px; font-size: 24px; font-weight: 580; }
+    .sample-insight > p { margin: 0; color: #c4d1c5; font-size: 11px; line-height: 1.6; }
+
+    .sample-insight-detail {
+      display: grid;
+      gap: 11px;
+      margin-top: auto;
+      padding-top: 17px;
+    }
+
+    .sample-insight-detail div { padding-top: 9px; border-top: 1px solid rgb(255 255 255 / 17%); }
+    .sample-insight-detail span {
+      display: block;
+      margin-bottom: 3px;
+      color: #a9c1ad;
+      font-size: 8px;
+      font-weight: 780;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .sample-insight-detail strong { font-size: 11px; font-weight: 650; }
+
+    .sample-caveat {
+      margin-top: 11px;
+      color: #d3ddce;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .methods-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .method-card {
+      min-height: 155px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+    }
+
+    .method-label {
+      display: block;
+      margin-bottom: 14px;
+      color: #65824c;
+      font-size: 9px;
+      font-weight: 820;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .method-card h3 { margin-bottom: 7px; font-size: 15px; }
+    .method-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+    .method-bridge {
+      display: grid;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      background: #e9eee2;
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .bridge-arrow {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--forest-deep);
+      background: var(--mint);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .method-bridge strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .method-bridge p { margin: 0; color: #56655c; font-size: 11px; }
+
+    .learn-layout {
+      display: grid;
+      align-items: stretch;
+      gap: 20px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+    }
+
+    .learn-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border-radius: 15px;
+      color: #f4f5ea;
+      background: var(--forest);
+    }
+
+    .learn-panel .eyebrow { color: #b8cdbb; }
+    .learn-panel h3 { max-width: 570px; margin: 18px 0 12px; font-size: clamp(24px, 2.7vw, 34px); font-weight: 570; }
+    .learn-panel > p { max-width: 540px; color: #c4d2c7; font-size: 12px; line-height: 1.65; }
+    .lens-list { display: grid; gap: 8px; margin: 21px 0 0; }
+
+    .lens-button {
+      display: grid;
+      min-height: 44px;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 11px;
+      border: 1px solid rgb(255 255 255 / 17%);
+      border-radius: 8px;
+      color: #e8ede4;
+      background: rgb(255 255 255 / 4%);
+      cursor: pointer;
+      text-align: left;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+    }
+
+    .lens-button:hover, .lens-button[aria-pressed="true"] { border-color: var(--mint); color: var(--forest-deep); background: var(--mint); }
+    .lens-number { font-size: 10px; font-weight: 850; opacity: .7; }
+    .lens-name { font-size: 11px; font-weight: 700; }
+    .lens-arrow { font-size: 15px; }
+
+    .learn-result {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      padding: clamp(23px, 3vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--white);
+    }
+
+    .result-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #75826f;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .result-label::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--coral);
+      content: "";
+    }
+
+    .learn-result h3 { margin: 26px 0 9px; font-size: 24px; }
+    .learn-result > p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .result-meta {
+      display: grid;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 22px;
+    }
+
+    .meta-row {
+      display: grid;
+      gap: 4px;
+      padding-top: 10px;
+      border-top: 1px solid #ecece4;
+    }
+
+    .meta-row span {
+      color: #829087;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .meta-row strong { font-size: 11px; font-weight: 660; }
+
+    .disclaimer {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border: 1px solid #eadbc1;
+      border-radius: 8px;
+      color: #765d3b;
+      background: #fff8ec;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .outcome-layout { display: grid; gap: 20px; grid-template-columns: minmax(0, 1.3fr) minmax(240px, .7fr); }
+    .loop-panel {
+      padding: clamp(21px, 3vw, 31px);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+    }
+
+    .loop-steps {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .loop-step {
+      position: relative;
+      display: flex;
+      min-height: 119px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 13px 10px;
+      border: 1px solid #e4e6dc;
+      border-radius: 9px;
+      color: var(--ink);
+      background: #fafaf6;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .loop-step:not(:last-child)::after {
+      position: absolute;
+      z-index: 1;
+      top: 25px;
+      right: -10px;
+      color: #7d926b;
+      content: "›";
+      font-size: 21px;
+      font-weight: 600;
+    }
+
+    .loop-step:hover, .loop-step[aria-pressed="true"] {
+      border-color: #9ebd78;
+      background: #eef4e4;
+    }
+
+    .loop-count {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 7px;
+      color: #35582d;
+      background: #dcebc8;
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .loop-step strong { font-size: 10px; line-height: 1.3; }
+    .loop-step span:last-child { color: var(--muted); font-size: 9px; line-height: 1.35; }
+
+    .loop-detail {
+      display: grid;
+      min-height: 83px;
+      align-items: center;
+      gap: 16px;
+      margin-top: 14px;
+      padding: 13px 15px;
+      border-radius: 9px;
+      background: #eef2e9;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .loop-detail strong { display: block; margin-bottom: 4px; font-size: 12px; }
+    .loop-detail p { margin: 0; color: #5a685f; font-size: 10px; line-height: 1.5; }
+    .owner-chip {
+      padding: 7px 9px;
+      border: 1px solid #d4dfca;
+      border-radius: 999px;
+      color: #526648;
+      background: #f8faf3;
+      font-size: 9px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .outcome-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 25px;
+      border-radius: 14px;
+      color: #f6f5eb;
+      background: var(--forest);
+    }
+
+    .outcome-aside .eyebrow { color: #bbcfbb; }
+    .outcome-aside h3 { margin: 20px 0 11px; font-size: 27px; font-weight: 580; }
+    .outcome-aside p { margin-bottom: 0; color: #c4d1c5; font-size: 11px; line-height: 1.65; }
+    .aside-rule { height: 1px; margin: 22px 0 14px; background: rgb(255 255 255 / 18%); }
+    .outcome-aside strong { color: var(--mint); font-size: 11px; }
+
+    .next-grid { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr) minmax(280px, .78fr); }
+    .roadmap { display: grid; gap: 10px; }
+    .roadmap-item {
+      display: grid;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 17px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--white);
+      grid-template-columns: 32px minmax(0, 1fr);
+    }
+
+    .roadmap-index {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border-radius: 9px;
+      color: #456b38;
+      background: #eaf2dc;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .roadmap-item strong { display: block; margin-bottom: 3px; font-size: 12px; }
+    .roadmap-item p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+    .decision-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(23px, 3vw, 34px);
+      border-radius: 15px;
+      color: #f5f5ec;
+      background: var(--forest);
+    }
+
+    .decision-card h3 { margin: 18px 0 11px; font-size: 30px; font-weight: 580; }
+    .decision-card > p { color: #c4d1c5; font-size: 12px; line-height: 1.65; }
+    .decision-card .primary-button { align-self: flex-start; margin-top: 15px; }
+    .closing-caveat {
+      margin-top: 15px;
+      padding-top: 13px;
+      border-top: 1px solid rgb(255 255 255 / 18%);
+      color: #c0cec1;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 0 38px;
+      border-top: 1px solid var(--line);
+      background: rgb(255 254 250 / 65%);
+    }
+
+    .control-hint { color: #87918a; font-size: 10px; }
+    .control-actions { display: flex; gap: 8px; }
+    .control-button {
+      display: inline-flex;
+      min-width: 88px;
+      min-height: 37px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .control-button:hover:not(:disabled) { border-color: #a9b5a1; background: #f5f7ef; }
+    .control-button:disabled { color: #a5ada6; cursor: not-allowed; background: #f4f4ee; }
+    .slide-count { min-width: 61px; color: #637069; font-size: 11px; font-variant-numeric: tabular-nums; text-align: center; }
+
+    @media (max-width: 980px) {
+      .app-shell { grid-template-columns: 205px minmax(0, 1fr); }
+      .sidebar { padding-right: 13px; padding-left: 13px; }
+      .topbar { padding-right: 24px; padding-left: 24px; }
+      .slide { padding-right: 36px; padding-left: 36px; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(270px, .8fr); }
+      .hero-visual { min-height: 360px; padding: 23px; }
+      .signal-card { min-height: 215px; padding: 18px; }
+      .loop-steps { grid-template-columns: repeat(5, minmax(90px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
+      .loop-step { min-height: 110px; }
+      .deck-controls { padding-right: 24px; padding-left: 24px; }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell { display: block; min-height: 100svh; }
+      .sidebar {
+        position: sticky;
+        z-index: 5;
+        top: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 10px 14px 9px;
+      }
+
+      .brand { display: none; }
+      .nav-label, .sidebar-bottom { display: none; }
+      .slide-nav {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .slide-nav::-webkit-scrollbar { display: none; }
+      .nav-item { width: auto; min-width: max-content; min-height: 37px; gap: 7px; padding: 6px 9px; }
+      .nav-num { width: auto; font-size: 9px; }
+      .nav-title { font-size: 10px; }
+      .workspace { min-height: calc(100svh - 56px); grid-template-rows: 53px 3px minmax(0, 1fr) 60px; }
+      .topbar { padding: 0 16px; }
+      .topbar-context { font-size: 9px; }
+      .draft-chip { font-size: 8px; }
+      .icon-button { min-height: 31px; padding: 0 8px; font-size: 10px; }
+      .deck-stage { min-height: calc(100svh - 172px); }
+      .slide { padding: 30px 20px 36px; }
+      .hero-grid, .understanding-grid, .learn-layout, .outcome-layout, .next-grid { grid-template-columns: 1fr; }
+      .sample-explorer { grid-template-columns: 1fr; }
+      .hero-grid { min-height: 0; gap: 25px; }
+      .hero-visual { min-height: 345px; }
+      .visual-orbit { top: 60px; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 13px; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .sample-stats { grid-template-columns: 1fr; }
+      .sample-stat { justify-content: space-between; }
+      .sample-chart-head { align-items: flex-start; flex-direction: column; }
+      .sample-insight { min-height: 300px; }
+      .signal-card { min-height: 170px; }
+      .signal-number { margin-bottom: 22px; }
+      .signal-card h3 { margin-top: 0; }
+      .methods-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .method-card { min-height: 165px; padding: 15px; }
+      .learn-result { min-height: 320px; }
+      .loop-steps { grid-template-columns: repeat(5, minmax(100px, 1fr)); }
+      .outcome-aside { min-height: 260px; }
+      .decision-card { min-height: 330px; }
+      .deck-controls { padding: 0 14px; }
+      .control-hint { display: none; }
+      .control-button { min-width: 76px; min-height: 35px; }
+    }
+
+    @media (max-width: 420px) {
+      .draft-chip { display: none; }
+      .methods-grid { grid-template-columns: 1fr; }
+      .method-card { min-height: 125px; }
+      .path-step:nth-child(2) { margin-left: 10px; }
+      .path-step:nth-child(3) { margin-left: 20px; }
+      .loop-detail { grid-template-columns: 1fr; }
+      .owner-chip { justify-self: start; }
+      .topbar-actions { gap: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0.35in; }
+      html, body { background: #fff; }
+      .app-shell { display: block; }
+      .sidebar, .topbar, .progress-track, .deck-controls { display: none !important; }
+      .workspace { display: block; min-height: 0; }
+      .deck-stage { overflow: visible; }
+      .slide, .slide[hidden] {
+        display: block !important;
+        width: 100%;
+        min-height: 7.1in;
+        padding: .35in;
+        break-after: page;
+        animation: none;
+      }
+      .hero-grid { min-height: 0; }
+      .hero-visual, .dark-panel, .learn-panel, .outcome-aside, .decision-card { print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Presentation outline">
+      <a class="brand" href="#slide-1" aria-label="Decision Sciences, start presentation">
+        <span class="brand-mark" aria-hidden="true">DS</span>
+        <span class="brand-copy"><strong>Decision Sciences</strong><span>From insight to outcome</span></span>
+      </a>
+      <p class="nav-label">The conversation</p>
+      <nav class="slide-nav" aria-label="Presentation sections">
+        <button class="nav-item" type="button" data-go="0" aria-current="step"><span class="nav-num">00</span><span class="nav-title">Opening</span></button>
+        <button class="nav-item" type="button" data-go="1"><span class="nav-num">01</span><span class="nav-title">What We Understand</span></button>
+        <button class="nav-item" type="button" data-go="2"><span class="nav-num">02</span><span class="nav-title">What We See</span></button>
+        <button class="nav-item" type="button" data-go="3"><span class="nav-num">03</span><span class="nav-title">What Could Be Possible</span></button>
+        <button class="nav-item" type="button" data-go="4"><span class="nav-num">04</span><span class="nav-title">How We Can Help</span></button>
+        <button class="nav-item" type="button" data-go="5"><span class="nav-num">05</span><span class="nav-title">What You Could Learn</span></button>
+        <button class="nav-item" type="button" data-go="6"><span class="nav-num">06</span><span class="nav-title">Insights to Outcomes</span></button>
+        <button class="nav-item" type="button" data-go="7"><span class="nav-num">07</span><span class="nav-title">Where We Go From Here</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <p class="side-note-label">Working principle</p>
+        <p class="draft-note">A dashboard is not the outcome. A better decision—and a measured action—is.</p>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-context"><span class="context-dot" aria-hidden="true"></span><span id="current-section">01 / What We Understand</span></div>
+        <div class="topbar-actions">
+          <span class="draft-chip">Discussion draft</span>
+          <button class="icon-button" id="fullscreen-button" type="button" aria-label="Enter full screen presentation">⛶ <span>Present</span></button>
+        </div>
+      </header>
+      <div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1">
+        <div class="progress-fill"></div>
+      </div>
+
+      <main class="deck-stage" id="deck" aria-live="polite">
+        <section class="slide active" id="slide-1" aria-labelledby="slide-title-1">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">A multi-KPI incentive program</p>
+              <h1 id="slide-title-1">Insights should change <span class="accent">what happens next.</span></h1>
+              <p class="lede">A stronger incentive program does more than report performance. It helps you see where behavior can move, decide what to do, and measure whether it worked.</p>
+              <div class="button-row">
+                <button class="primary-button" type="button" data-next>Explore the opportunity <span aria-hidden="true">→</span></button>
+                <span class="micro-copy">A conversation about decisions, not just dashboards.</span>
+              </div>
+            </div>
+            <div class="hero-visual" aria-label="Illustration of the path from program intent to measurable outcomes">
+              <span class="visual-orbit" aria-hidden="true"></span>
+              <div class="visual-kicker">The value chain</div>
+              <div class="pathway">
+                <div class="path-step"><span class="path-index">01</span><span class="path-name">Program intent</span><span class="path-hint">What matters?</span></div>
+                <div class="path-step"><span class="path-index">02</span><span class="path-name">Participant action</span><span class="path-hint">What changes?</span></div>
+                <div class="path-step"><span class="path-index">03</span><span class="path-name">Business outcome</span><span class="path-hint">Did it work?</span></div>
+              </div>
+              <div class="visual-foot">Connect the incentive to a behavior, then connect the behavior to an outcome.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-2" aria-labelledby="slide-title-2" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">01 · What We Understand</p>
+              <h2 id="slide-title-2">The program launches. <span class="accent">The behavior has to follow.</span></h2>
+              <p class="lede">The opportunity is in the distance between the incentive holder's intent and the participant's day-to-day choices.</p>
+            </div>
+            <span class="section-tag">Start with your reality</span>
+          </div>
+          <div class="understanding-grid">
+            <div class="dark-panel">
+              <span class="question-mark" aria-hidden="true">?</span>
+              <h3>Where does momentum get lost between program design and participant action?</h3>
+              <p>We start by understanding your goals, how the program works today, what participants are asked to do, and what gets in their way.</p>
+            </div>
+            <div class="understanding-side">
+              <article class="mini-card">
+                <span class="mini-icon" aria-hidden="true">A</span>
+                <div><h3>Align on the outcome</h3><p>What business result should a multi-KPI incentive influence?</p></div>
+              </article>
+              <article class="mini-card">
+                <span class="mini-icon" aria-hidden="true">B</span>
+                <div><h3>Understand the audience</h3><p>Who participates, what motivates them, and where does adoption stall?</p></div>
+              </article>
+              <article class="mini-card">
+                <span class="mini-icon" aria-hidden="true">C</span>
+                <div><h3>Define the decision</h3><p>What should leaders be able to do differently with better evidence?</p></div>
+              </article>
+            </div>
+          </div>
+          <div class="callout"><strong>Our starting point:</strong><span>The adoption gap is a question to test with your data—not a client-specific conclusion we assume in advance.</span></div>
+        </section>
+
+        <section class="slide" id="slide-3" aria-labelledby="slide-title-3" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">02 · What We See</p>
+              <h2 id="slide-title-3">In the demo, <span class="accent">criteria don't move together.</span></h2>
+              <p class="lede">A synthetic snapshot makes the multi-KPI story tangible: the share meeting each criterion varies, and the full scorecard is much more selective.</p>
+            </div>
+            <span class="section-tag">Synthetic sample · illustrative only</span>
+          </div>
+          <div class="sample-stats" aria-label="Synthetic sample overview">
+            <div class="sample-stat"><strong>1,000</strong><span>fictional location snapshots</span></div>
+            <div class="sample-stat"><strong>8</strong><span>fictional sales regions</span></div>
+            <div class="sample-stat"><strong>3 / 1,000</strong><span>meet all nine top-level criteria*</span></div>
+          </div>
+          <div class="sample-explorer">
+            <div class="sample-chart">
+              <div class="sample-chart-head">
+                <h3>KPI criteria met · <span id="sample-cohort">All 1,000 sample locations</span></h3>
+                <label for="region-filter">Explore
+                  <select class="region-select" id="region-filter" aria-label="Filter synthetic KPI summary by region">
+                    <option value="all">All sample regions</option>
+                    <option value="SR-01">Sample region 01</option>
+                    <option value="SR-02">Sample region 02</option>
+                    <option value="SR-03">Sample region 03</option>
+                    <option value="SR-04">Sample region 04</option>
+                    <option value="SR-05">Sample region 05</option>
+                    <option value="SR-06">Sample region 06</option>
+                    <option value="SR-07">Sample region 07</option>
+                    <option value="SR-08">Sample region 08</option>
+                  </select>
+                </label>
+              </div>
+              <div class="sample-bars" id="sample-bars" aria-live="polite">
+                <div class="sample-bar-row" data-kpi="primary"><div class="sample-bar-label"><span>Primary performance</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="secondary"><div class="sample-bar-label"><span>Secondary sales</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="priority"><div class="sample-bar-label"><span>Priority-product activation</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="loyalty"><div class="sample-bar-label"><span>Customer loyalty</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="installed"><div class="sample-bar-label"><span>Installed base</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="ancillary"><div class="sample-bar-label"><span>Ancillary productivity</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="service"><div class="sample-bar-label"><span>Service experience</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="cases"><div class="sample-bar-label"><span>Case resolution</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+                <div class="sample-bar-row" data-kpi="facility"><div class="sample-bar-label"><span>Facility standards</span><strong></strong></div><div class="sample-bar-track"><div class="sample-bar-fill"></div></div></div>
+              </div>
+            </div>
+            <aside class="sample-insight" aria-live="polite">
+              <span class="method-label">The composite is the conversation</span>
+              <h3><span id="sample-composite-count">3 / 1,000</span> meet all nine.</h3>
+              <p id="sample-composite-copy">Only 0.3% of the synthetic locations meet every top-level performance criterion under the provisional sample rules.</p>
+              <div class="sample-insight-detail">
+                <div><span>Selected view</span><strong id="sample-view-name">All sample regions</strong></div>
+                <div><span>Lowest individual pass rate</span><strong id="sample-lowest">Priority-product activation · 23.0%</strong></div>
+                <div><span>Question worth asking</span><strong>Are thresholds and gates calibrated to the intended population?</strong></div>
+              </div>
+              <div class="sample-caveat">*Provisional rule thresholds; synthetic data only. This is a design prompt—not a client finding.</div>
+            </aside>
+          </div>
+          <div class="callout"><strong>What this snapshot cannot show:</strong><span>It has no incentive exposure, time series, experiment control group, or cost data—so it cannot establish adoption, change, causality, or ROI. Those require client-approved data and a fit-for-purpose design.</span></div>
+        </section>
+
+        <section class="slide" id="slide-4" aria-labelledby="slide-title-4" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">03 · What We Believe Is Possible</p>
+              <h2 id="slide-title-4">Reward the <span class="accent">right mix of behavior.</span></h2>
+              <p class="lede">A multi-KPI design can make the intended outcome clearer, balance competing priorities, and create a learning loop—not just a payout rule.</p>
+            </div>
+            <span class="section-tag">Hypothesis · not a promise</span>
+          </div>
+          <div class="signal-grid">
+            <article class="signal-card">
+              <span class="signal-number">DESIGN HYPOTHESIS 01</span>
+              <h3>Align the scorecard</h3>
+              <p>If incentives reflect a balanced set of business priorities, participants may focus on a broader set of valuable behaviors.</p>
+            </article>
+            <article class="signal-card">
+              <span class="signal-number">DESIGN HYPOTHESIS 02</span>
+              <h3>Meet people where they are</h3>
+              <p>If support is relevant to a participant's starting point, the program may make the next best action easier to see.</p>
+            </article>
+            <article class="signal-card">
+              <span class="signal-number">DESIGN HYPOTHESIS 03</span>
+              <h3>Learn and adapt</h3>
+              <p>If the program is measured deliberately, you can learn what works, for whom, and whether it is worth scaling.</p>
+            </article>
+          </div>
+          <div class="callout"><strong>What must be true?</strong><span>Agree on the target outcomes, participant experience, eligibility rules, guardrails, and evidence needed to validate each hypothesis.</span></div>
+        </section>
+
+        <section class="slide" id="slide-5" aria-labelledby="slide-title-5" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">04 · How Decision Sciences Can Help</p>
+              <h2 id="slide-title-5">Methods are useful <span class="accent">when they answer your question.</span></h2>
+              <p class="lede">Each capability has a job in the decision process. The measure is not how many analyses we run; it is whether the evidence helps you choose what to do.</p>
+            </div>
+            <span class="section-tag">Tools in service of decisions</span>
+          </div>
+          <div class="methods-grid">
+            <article class="method-card"><span class="method-label">Understand change</span><h3>Pre / post analysis</h3><p>Establish what moved around a program or intervention—and what else may explain the change.</p></article>
+            <article class="method-card"><span class="method-label">Find variation</span><h3>Cohort analysis</h3><p>See where response differs so a single average does not hide distinct participant needs.</p></article>
+            <article class="method-card"><span class="method-label">Evaluate a claim</span><h3>Hypothesis testing</h3><p>Make assumptions explicit and assess whether the observed evidence supports them.</p></article>
+            <article class="method-card"><span class="method-label">Test an intervention</span><h3>A/B testing</h3><p>Compare a defined change with a suitable control when randomization and program conditions allow.</p></article>
+            <article class="method-card"><span class="method-label">Guide action</span><h3>Decision dashboards</h3><p>Surface the measures, thresholds, and exceptions that help owners take the next step.</p></article>
+            <article class="method-card"><span class="method-label">Make it relevant</span><h3>Industry examples</h3><p>Use audience-specific scenarios to make program choices tangible without implying client results.</p></article>
+          </div>
+          <div class="method-bridge"><span class="bridge-arrow" aria-hidden="true">→</span><div><strong>From analysis to decision support</strong><p>Predefine the question, comparison, success measure, and decision rule—then build the dashboard or experiment around them.</p></div></div>
+        </section>
+
+        <section class="slide" id="slide-6" aria-labelledby="slide-title-6" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">05 · What the Client Could Learn</p>
+              <h2 id="slide-title-6">The mic drop is a <span class="accent">decision you can act on.</span></h2>
+              <p class="lede">Choose a lens to see the kind of question a well-designed program can help answer.</p>
+            </div>
+            <span class="section-tag">Interactive question builder</span>
+          </div>
+          <div class="learn-layout">
+            <div class="learn-panel">
+              <p class="eyebrow">Explore a learning lens</p>
+              <p>Select a question. The example is a planning prompt—not an analysis of this client's data.</p>
+              <div class="lens-list" role="group" aria-label="Select a learning lens">
+                <button class="lens-button" type="button" data-lens="response" aria-pressed="true"><span class="lens-number">01</span><span class="lens-name">Who responds?</span><span class="lens-arrow" aria-hidden="true">↗</span></button>
+                <button class="lens-button" type="button" data-lens="behavior" aria-pressed="false"><span class="lens-number">02</span><span class="lens-name">What changes behavior?</span><span class="lens-arrow" aria-hidden="true">↗</span></button>
+                <button class="lens-button" type="button" data-lens="economics" aria-pressed="false"><span class="lens-number">03</span><span class="lens-name">What is worth investing in?</span><span class="lens-arrow" aria-hidden="true">↗</span></button>
+              </div>
+            </div>
+            <div class="learn-result" aria-live="polite">
+              <span class="result-label" id="lens-label">Learning question</span>
+              <h3 id="lens-title">Does response differ by starting point?</h3>
+              <p id="lens-copy">Compare participant cohorts on the same KPI definitions and time windows. Look for meaningful differences, then validate whether the pattern is actionable.</p>
+              <div class="result-meta">
+                <div class="meta-row"><span>Evidence to plan for</span><strong id="lens-evidence">Baseline + cohort definitions + comparable periods</strong></div>
+                <div class="meta-row"><span>Decision it could inform</span><strong id="lens-decision">Where to focus the next intervention</strong></div>
+              </div>
+              <div class="disclaimer">Illustrative only. The available sample data is synthetic and cannot establish client impact, causality, or ROI.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-7" aria-labelledby="slide-title-7" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">06 · How We Turn Insights Into Outcomes</p>
+              <h2 id="slide-title-7">Make the next action <span class="accent">part of the analysis.</span></h2>
+              <p class="lede">Select a step in the loop. Each one should have an owner, a measure, and a decision that follows.</p>
+            </div>
+            <span class="section-tag">Insight → action → learning</span>
+          </div>
+          <div class="outcome-layout">
+            <div class="loop-panel">
+              <div class="loop-steps" role="group" aria-label="Insight to outcome steps">
+                <button class="loop-step" type="button" data-action="signal" aria-pressed="true"><span class="loop-count">1</span><strong>Find the signal</strong><span>What needs attention?</span></button>
+                <button class="loop-step" type="button" data-action="decide" aria-pressed="false"><span class="loop-count">2</span><strong>Make a decision</strong><span>Which lever to use?</span></button>
+                <button class="loop-step" type="button" data-action="act" aria-pressed="false"><span class="loop-count">3</span><strong>Take action</strong><span>Who does what?</span></button>
+                <button class="loop-step" type="button" data-action="measure" aria-pressed="false"><span class="loop-count">4</span><strong>Measure change</strong><span>Did it work?</span></button>
+                <button class="loop-step" type="button" data-action="optimize" aria-pressed="false"><span class="loop-count">5</span><strong>Learn &amp; improve</strong><span>What happens next?</span></button>
+              </div>
+              <div class="loop-detail" aria-live="polite">
+                <div><strong id="action-title">Find a meaningful signal</strong><p id="action-copy">Set a baseline and identify a KPI or participant segment that merits attention.</p></div>
+                <span class="owner-chip" id="action-owner">Decision science + client</span>
+              </div>
+            </div>
+            <aside class="outcome-aside">
+              <div>
+                <p class="eyebrow">The mic-drop moment</p>
+                <h3>Not just “what happened?”</h3>
+                <p>“Here is who has the opportunity, what we recommend doing, and how we will know whether it created value.”</p>
+              </div>
+              <div><div class="aside-rule"></div><strong>Insight is the beginning of the work.</strong></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-8" aria-labelledby="slide-title-8" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">07 · Where We Go From Here</p>
+              <h2 id="slide-title-8">Start with one outcome. <span class="accent">Prove the next step.</span></h2>
+              <p class="lede">A focused pilot can turn the conversation into a measurable decision—without asking you to commit to an unproven return.</p>
+            </div>
+            <span class="section-tag">A practical path forward</span>
+          </div>
+          <div class="next-grid">
+            <div class="roadmap">
+              <article class="roadmap-item"><span class="roadmap-index">01</span><div><strong>Align on the business question</strong><p>Choose the outcome, participant audience, and decision the pilot should inform.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">02</span><div><strong>Confirm data and measures</strong><p>Review approved inputs, KPI definitions, baselines, comparison design, and guardrails.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">03</span><div><strong>Scope the pilot and investment</strong><p>Agree on roles, timing, test design, service cost, and transparent ROI assumptions.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">04</span><div><strong>Learn, then decide whether to scale</strong><p>Review measured outcomes and determine what to refine, expand, or stop.</p></div></article>
+            </div>
+            <div class="decision-card">
+              <div>
+                <p class="eyebrow">The decision to make together</p>
+                <h3>Which business outcome should we help you move first?</h3>
+                <p>That answer sets the data we need, the test we design, and the investment we can credibly scope.</p>
+              </div>
+              <div>
+                <button class="primary-button" type="button" id="restart-button">Start the conversation <span aria-hidden="true">↗</span></button>
+                <div class="closing-caveat">Pricing and ROI are intentionally left for a client-specific scope. No results or returns are implied by this discussion draft.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="deck-controls">
+        <span class="control-hint">Navigate with ← → · Press F to present</span>
+        <div class="control-actions">
+          <button class="control-button" id="previous-button" type="button" disabled><span aria-hidden="true">←</span> Previous</button>
+          <span class="slide-count" id="slide-count" aria-live="polite">01 / 08</span>
+          <button class="control-button" id="next-button" type="button">Next <span aria-hidden="true">→</span></button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const navItems = Array.from(document.querySelectorAll(".nav-item"));
+      const progress = document.querySelector(".progress-track");
+      const progressFill = document.querySelector(".progress-fill");
+      const previousButton = document.querySelector("#previous-button");
+      const nextButton = document.querySelector("#next-button");
+      const slideCount = document.querySelector("#slide-count");
+      const currentSection = document.querySelector("#current-section");
+      const deck = document.querySelector("#deck");
+      let activeIndex = 0;
+
+      const titles = [
+        "Opening",
+        "What We Understand",
+        "What We See",
+        "What Could Be Possible",
+        "How We Can Help",
+        "What You Could Learn",
+        "Insights to Outcomes",
+        "Where We Go From Here"
+      ];
+
+      function showSlide(index) {
+        activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.hidden = i !== activeIndex;
+          slide.classList.toggle("active", i === activeIndex);
+        });
+        navItems.forEach((item, i) => {
+          if (i === activeIndex) item.setAttribute("aria-current", "step");
+          else item.removeAttribute("aria-current");
+        });
+        const displayIndex = String(activeIndex + 1).padStart(2, "0");
+        slideCount.textContent = `${displayIndex} / ${String(slides.length).padStart(2, "0")}`;
+        currentSection.textContent = `${displayIndex} / ${titles[Math.min(activeIndex, titles.length - 1)]}`;
+        progressFill.style.width = `${((activeIndex + 1) / slides.length) * 100}%`;
+        progress.setAttribute("aria-valuenow", String(activeIndex + 1));
+        previousButton.disabled = activeIndex === 0;
+        nextButton.disabled = activeIndex === slides.length - 1;
+        deck.scrollTop = 0;
+        history.replaceState(null, "", `#slide-${activeIndex + 1}`);
+      }
+
+      navItems.forEach((item) => item.addEventListener("click", () => showSlide(Number(item.dataset.go))));
+      document.querySelectorAll("[data-next]").forEach((button) => button.addEventListener("click", () => showSlide(activeIndex + 1)));
+      previousButton.addEventListener("click", () => showSlide(activeIndex - 1));
+      nextButton.addEventListener("click", () => showSlide(activeIndex + 1));
+      document.querySelector("#restart-button").addEventListener("click", () => showSlide(0));
+
+      const sampleGroups = {
+        all: { name: "All sample regions", size: 1000, allPass: 3 },
+        "SR-01": { name: "Sample region 01", size: 125, allPass: 0 },
+        "SR-02": { name: "Sample region 02", size: 125, allPass: 1 },
+        "SR-03": { name: "Sample region 03", size: 125, allPass: 0 },
+        "SR-04": { name: "Sample region 04", size: 125, allPass: 0 },
+        "SR-05": { name: "Sample region 05", size: 125, allPass: 1 },
+        "SR-06": { name: "Sample region 06", size: 125, allPass: 0 },
+        "SR-07": { name: "Sample region 07", size: 125, allPass: 1 },
+        "SR-08": { name: "Sample region 08", size: 125, allPass: 0 }
+      };
+
+      const sampleKpis = [
+        { key: "primary", label: "Primary performance", counts: [502, 62, 68, 56, 67, 59, 71, 58, 61] },
+        { key: "secondary", label: "Secondary sales", counts: [836, 106, 105, 103, 106, 103, 106, 98, 109] },
+        { key: "priority", label: "Priority-product activation", counts: [230, 34, 30, 19, 32, 32, 27, 28, 28] },
+        { key: "loyalty", label: "Customer loyalty", counts: [903, 113, 113, 108, 115, 111, 114, 118, 111] },
+        { key: "installed", label: "Installed base", counts: [695, 86, 91, 91, 81, 88, 90, 88, 80] },
+        { key: "ancillary", label: "Ancillary productivity", counts: [659, 76, 88, 84, 88, 76, 81, 91, 75] },
+        { key: "service", label: "Service experience", counts: [484, 67, 53, 57, 56, 59, 63, 66, 63] },
+        { key: "cases", label: "Case resolution", counts: [256, 24, 34, 33, 34, 33, 31, 34, 33] },
+        { key: "facility", label: "Facility standards", counts: [658, 72, 93, 88, 77, 90, 89, 76, 73] }
+      ];
+
+      function updateSampleChart() {
+        const regionFilter = document.querySelector("#region-filter").value;
+        const group = sampleGroups[regionFilter];
+        const groupIndex = regionFilter === "all" ? 0 : Number(regionFilter.slice(-2));
+        const cohort = document.querySelector("#sample-cohort");
+        cohort.textContent = regionFilter === "all"
+          ? `All ${group.size.toLocaleString()} sample locations`
+          : `${group.size} locations · ${group.name}`;
+        document.querySelector("#sample-view-name").textContent = group.name;
+
+        const rates = sampleKpis.map((kpi) => {
+          const count = kpi.counts[groupIndex];
+          const rate = 100 * count / group.size;
+          const row = document.querySelector(`[data-kpi="${kpi.key}"]`);
+          const value = row.querySelector(".sample-bar-label strong");
+          const fill = row.querySelector(".sample-bar-fill");
+          const track = row.querySelector(".sample-bar-track");
+          value.textContent = `${rate.toFixed(1)}% · ${count}/${group.size}`;
+          fill.style.width = `${rate}%`;
+          track.setAttribute("role", "progressbar");
+          track.setAttribute("aria-label", `${kpi.label} criterion met`);
+          track.setAttribute("aria-valuemin", "0");
+          track.setAttribute("aria-valuemax", "100");
+          track.setAttribute("aria-valuenow", rate.toFixed(1));
+          track.setAttribute("aria-valuetext", `${count} of ${group.size} locations, ${rate.toFixed(1)} percent`);
+          return { label: kpi.label, rate };
+        });
+
+        const lowest = rates.reduce((a, b) => a.rate <= b.rate ? a : b);
+        const compositeRate = 100 * group.allPass / group.size;
+        document.querySelector("#sample-composite-count").textContent = `${group.allPass} / ${group.size.toLocaleString()}`;
+        document.querySelector("#sample-composite-copy").textContent =
+          `${compositeRate.toFixed(1)}% of this synthetic view meets every top-level performance criterion under the provisional sample rules.`;
+        document.querySelector("#sample-lowest").textContent = `${lowest.label} · ${lowest.rate.toFixed(1)}%`;
+      }
+
+      document.querySelector("#region-filter").addEventListener("change", updateSampleChart);
+      updateSampleChart();
+
+      const lensContent = {
+        response: {
+          title: "Does response differ by starting point?",
+          copy: "Compare participant cohorts on the same KPI definitions and time windows. Look for meaningful differences, then validate whether the pattern is actionable.",
+          evidence: "Baseline + cohort definitions + comparable periods",
+          decision: "Where to focus the next intervention"
+        },
+        behavior: {
+          title: "Which intervention changes the next action?",
+          copy: "Form a testable hypothesis, choose a fair comparison, and measure the behavior and business KPI the intervention is intended to influence.",
+          evidence: "Intervention design + control or comparison + success measure",
+          decision: "Which incentive or support to test next"
+        },
+        economics: {
+          title: "Does the measured value justify the investment?",
+          copy: "Model the cost and potential value with client-approved inputs. Track actual results against the baseline before making a scale decision.",
+          evidence: "Service and reward costs + incremental outcomes + agreed assumptions",
+          decision: "Whether to refine, scale, or stop the pilot"
+        }
+      };
+
+      document.querySelectorAll(".lens-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".lens-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          const content = lensContent[button.dataset.lens];
+          document.querySelector("#lens-title").textContent = content.title;
+          document.querySelector("#lens-copy").textContent = content.copy;
+          document.querySelector("#lens-evidence").textContent = content.evidence;
+          document.querySelector("#lens-decision").textContent = content.decision;
+        });
+      });
+
+      const actionContent = {
+        signal: ["Find a meaningful signal", "Set a baseline and identify a KPI or participant segment that merits attention.", "Decision science + client"],
+        decide: ["Choose a response", "Select an intervention that addresses the evidence and fits program constraints.", "Program owner + leadership"],
+        act: ["Put the decision into practice", "Define who receives the intervention, who owns delivery, and when it happens.", "Program operations"],
+        measure: ["Measure what changed", "Compare outcomes with the agreed baseline or test design; check guardrails as well as target KPIs.", "Analytics + program owner"],
+        optimize: ["Use evidence to choose what is next", "Decide whether to refine, scale, or stop—and document what the program learned.", "Joint decision team"]
+      };
+
+      document.querySelectorAll(".loop-step").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".loop-step").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          const [title, copy, owner] = actionContent[button.dataset.action];
+          document.querySelector("#action-title").textContent = title;
+          document.querySelector("#action-copy").textContent = copy;
+          document.querySelector("#action-owner").textContent = owner;
+        });
+      });
+
+      const fullscreenButton = document.querySelector("#fullscreen-button");
+      fullscreenButton.addEventListener("click", async () => {
+        try {
+          if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+          else await document.exitFullscreen();
+        } catch {
+          fullscreenButton.querySelector("span").textContent = "Full screen unavailable";
+        }
+      });
+      document.addEventListener("fullscreenchange", () => {
+        const isFullscreen = Boolean(document.fullscreenElement);
+        fullscreenButton.setAttribute("aria-label", isFullscreen ? "Exit full screen presentation" : "Enter full screen presentation");
+        fullscreenButton.querySelector("span").textContent = isFullscreen ? "Exit" : "Present";
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        const target = event.target;
+        const isEditable = target instanceof HTMLElement && target.closest("input, select, textarea, [contenteditable='true']");
+        if (isEditable) return;
+        const isControl = target instanceof HTMLElement && target.closest("button, a");
+        if (event.key === " " && isControl) return;
+        if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+          event.preventDefault();
+          showSlide(activeIndex + 1);
+        } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+          event.preventDefault();
+          showSlide(activeIndex - 1);
+        } else if (event.key === "Home") {
+          showSlide(0);
+        } else if (event.key === "End") {
+          showSlide(slides.length - 1);
+        } else if (event.key.toLowerCase() === "f" && !event.repeat) {
+          fullscreenButton.click();
+        }
+      });
+
+      const initialSlide = Number(location.hash.replace("#slide-", ""));
+      showSlide(Number.isInteger(initialSlide) && initialSlide > 0 ? initialSlide - 1 : 0);
+    })();
+  </script>
+</body>
+</html>

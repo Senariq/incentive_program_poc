@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f4ee">
-  <title>From Insight to Outcome | Decision Sciences</title>
+  <meta name="theme-color" content="#f8f7f9">
+  <title>BI WORLDWIDE Interactive Client Pitch | Discussion Draft</title>
   <style>
     :root {
       color-scheme: light;
-      --paper: #f5f4ee;
-      --white: #fffefa;
-      --ink: #172625;
-      --muted: #64716d;
-      --line: #dedfd6;
-      --forest: #153b35;
-      --forest-deep: #102b28;
-      --mint: #c9ef7b;
-      --mint-dark: #9dc850;
-      --coral: #e8866d;
-      --blue: #a9d8dc;
-      --shadow: 0 22px 65px rgb(23 38 37 / 8%);
+      --paper: #f8f7f9;
+      --white: #ffffff;
+      --ink: #1b1a2a;
+      --muted: #5f5e6b;
+      --line: #e7e5ed;
+      --forest: #352044;
+      --forest-deep: #1b1a2a;
+      --mint: #ff661f;
+      --mint-dark: #f15a24;
+      --coral: #ff9a32;
+      --blue: #8751d4;
+      --shadow: 0 22px 65px rgb(27 26 42 / 10%);
       font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
     }
 
@@ -1134,14 +1134,72 @@
       .hero-grid { min-height: 0; }
       .hero-visual, .dark-panel, .learn-panel, .outcome-aside, .decision-card { print-color-adjust: exact; }
     }
+
+    .sidebar { color: #f8f7fb; }
+    .brand-copy span, .draft-note { color: #c5bdcc; }
+    .nav-label, .side-note-label, .nav-num { color: #b6a8c3; }
+    .nav-item { color: #d7d2de; }
+    .nav-item:hover { color: #ffffff; }
+    .nav-item[aria-current="step"] { color: var(--ink); background: var(--mint); }
+    .nav-item[aria-current="step"] .nav-num { color: var(--ink); }
+    .draft-chip { border-color: #ffd1bd; color: #a63d11; background: #fff2eb; }
+    .topbar, .deck-controls { background: rgb(255 255 255 / 92%); }
+    .progress-track { background: #ece9f0; }
+    .deck-stage { scrollbar-color: #c9c4d0 transparent; }
+    .eyebrow { color: #625a6c; }
+    .accent { color: var(--mint-dark); }
+    .lede { color: #5f5e6b; }
+    .hero-visual { background: linear-gradient(135deg, #352044 0%, #5b2c89 58%, #ed6327 100%); }
+    .hero-visual, .dark-panel, .learn-panel, .sample-insight, .outcome-aside, .decision-card { color: #f8f7fb; }
+    .visual-orbit { border-color: rgb(255 100 31 / 40%); }
+    .visual-orbit::before { border-color: rgb(255 100 31 / 30%); }
+    .visual-orbit::after { border-color: rgb(135 81 212 / 55%); }
+    .visual-kicker, .path-hint, .visual-foot { color: #d8d0df; }
+    .path-index, .question-mark, .mini-icon, .loop-count, .roadmap-index { color: var(--ink); }
+    .path-index, .question-mark { background: var(--mint); }
+    .primary-button { color: var(--ink); background: var(--mint-dark); }
+    .primary-button:hover { background: #df4d1c; }
+    .text-link { color: #7541bd; }
+    .section-tag { border-color: #e4d8f1; color: #7040a6; background: #f5effb; }
+    .dark-panel p, .sample-insight > p, .learn-panel > p, .outcome-aside p, .decision-card > p { color: #d8d0df; }
+    .mini-icon { color: #7441b8; background: #f3ebfb; }
+    .callout { border-left-color: var(--mint-dark); color: #514d58; background: #fff3ec; }
+    .signal-card:nth-child(2) { background: #f8f3fc; }
+    .signal-card:nth-child(3) { color: #f8f7fb; background: var(--forest); }
+    .signal-number, .sample-stat strong, .method-label { color: #7541bd; }
+    .signal-card:nth-child(3) .signal-number { color: #ff9a76; }
+    .signal-card:nth-child(3) p { color: #d8d0df; }
+    .sample-bar-label { color: #5b5662; }
+    .sample-bar-track { background: #eeeaf2; }
+    .sample-bar-fill { background: var(--mint-dark); }
+    .sample-bar-row:nth-child(3) .sample-bar-fill { background: var(--coral); }
+    .sample-bar-row:nth-child(8) .sample-bar-fill { background: var(--blue); }
+    .sample-insight-detail span, .sample-caveat { color: #d0c0dc; }
+    .method-bridge { background: #f5effb; }
+    .method-bridge p { color: #5d5765; }
+    .learn-panel .eyebrow, .outcome-aside .eyebrow { color: #f5b38f; }
+    .lens-button:hover, .lens-button[aria-pressed="true"] { border-color: var(--mint-dark); color: var(--ink); background: var(--mint); }
+    .result-label, .loop-step:not(:last-child)::after { color: #7541bd; }
+    .meta-row span, .control-hint { color: #706a78; }
+    .disclaimer { border-color: #f5d2b3; color: #864b20; background: #fff6ed; }
+    .loop-step:hover, .loop-step[aria-pressed="true"] { border-color: var(--mint-dark); background: #fff3ec; }
+    .loop-count { color: var(--ink); background: var(--mint-dark); }
+    .loop-detail { background: #f5effb; }
+    .loop-detail p { color: #5d5765; }
+    .owner-chip { border-color: #e1d5ed; color: #7040a6; background: #ffffff; }
+    .roadmap-index { color: #7541bd; background: #f3ebfb; }
+    .closing-caveat { color: #d0c7d8; }
+    .control-button:hover:not(:disabled) { border-color: #ccafe7; background: #f7f2fb; }
+    .control-button:disabled { color: #a5a1aa; background: #f4f3f6; }
+    .slide-count { color: #625d68; }
   </style>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" aria-label="Presentation outline">
-      <a class="brand" href="#slide-1" aria-label="Decision Sciences, start presentation">
-        <span class="brand-mark" aria-hidden="true">DS</span>
-        <span class="brand-copy"><strong>Decision Sciences</strong><span>From insight to outcome</span></span>
+      <a class="brand" href="#slide-1" aria-label="BI WORLDWIDE Interactive Client Pitch, start presentation">
+        <span class="brand-mark" aria-hidden="true">BI</span>
+        <span class="brand-copy"><strong>BI WORLDWIDE</strong><span>Client pitch draft</span></span>
       </a>
       <p class="nav-label">The conversation</p>
       <nav class="slide-nav" aria-label="Presentation sections">
@@ -1156,7 +1214,7 @@
       </nav>
       <div class="sidebar-bottom">
         <p class="side-note-label">Working principle</p>
-        <p class="draft-note">A dashboard is not the outcome. A better decision—and a measured action—is.</p>
+        <p class="draft-note">Sales draft: validate the data story, assumptions, and next step before presenting.</p>
       </div>
     </aside>
 
@@ -1168,7 +1226,7 @@
           <button class="icon-button" id="fullscreen-button" type="button" aria-label="Enter full screen presentation">⛶ <span>Present</span></button>
         </div>
       </header>
-      <div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1">
+      <div class="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
         <div class="progress-fill"></div>
       </div>
 
@@ -1176,12 +1234,12 @@
         <section class="slide active" id="slide-1" aria-labelledby="slide-title-1">
           <div class="hero-grid">
             <div class="hero-copy">
-              <p class="eyebrow">A multi-KPI incentive program</p>
-              <h1 id="slide-title-1">Insights should change <span class="accent">what happens next.</span></h1>
-              <p class="lede">A stronger incentive program does more than report performance. It helps you see where behavior can move, decide what to do, and measure whether it worked.</p>
+              <p class="eyebrow">Interactive client pitch · Discussion draft</p>
+              <h1 id="slide-title-1">Turn program data into <span class="accent">better incentive decisions.</span></h1>
+              <p class="lede">Connect participant behavior and business outcomes to a clear opportunity, a relevant BI WORLDWIDE solution, and a way to measure what happens next.</p>
               <div class="button-row">
                 <button class="primary-button" type="button" data-next>Explore the opportunity <span aria-hidden="true">→</span></button>
-                <span class="micro-copy">A conversation about decisions, not just dashboards.</span>
+                <span class="micro-copy">A data-led conversation, ready for sales review.</span>
               </div>
             </div>
             <div class="hero-visual" aria-label="Illustration of the path from program intent to measurable outcomes">
@@ -1210,24 +1268,24 @@
             <div class="dark-panel">
               <span class="question-mark" aria-hidden="true">?</span>
               <h3>Where does momentum get lost between program design and participant action?</h3>
-              <p>We start by understanding your goals, how the program works today, what participants are asked to do, and what gets in their way.</p>
+              <p>BI Worldwide supports large, multi-industry clients with tailored recognition, sales incentive, customer-gamification, learning, and goal-based programs. The participant and desired behavior depend on the client's business and program.</p>
             </div>
             <div class="understanding-side">
               <article class="mini-card">
                 <span class="mini-icon" aria-hidden="true">A</span>
-                <div><h3>Align on the outcome</h3><p>What business result should a multi-KPI incentive influence?</p></div>
+                <div><h3>Start with the outcome</h3><p>Prioritize incremental revenue, then clarify the role of sales volume, employee or customer retention, and engagement.</p></div>
               </article>
               <article class="mini-card">
                 <span class="mini-icon" aria-hidden="true">B</span>
-                <div><h3>Understand the audience</h3><p>Who participates, what motivates them, and where does adoption stall?</p></div>
+                <div><h3>Define the participant</h3><p>Depending on the program, participants may be employees, sales teams, or customers; motivation may come from points, recognition, experiences, or other rewards.</p></div>
               </article>
               <article class="mini-card">
                 <span class="mini-icon" aria-hidden="true">C</span>
-                <div><h3>Define the decision</h3><p>What should leaders be able to do differently with better evidence?</p></div>
+                <div><h3>Put the decision in view</h3><p>Program owners act on the findings, with HR, Growth, Marketing, and Finance leaders sponsoring or approving investment decisions.</p></div>
               </article>
             </div>
           </div>
-          <div class="callout"><strong>Our starting point:</strong><span>The adoption gap is a question to test with your data—not a client-specific conclusion we assume in advance.</span></div>
+          <div class="callout"><strong>Our starting point:</strong><span>Find where participation or performance can move; verify any adoption gap with client data rather than assuming it exists.</span></div>
         </section>
 
         <section class="slide" id="slide-3" aria-labelledby="slide-title-3" hidden>
@@ -1235,7 +1293,7 @@
             <div>
               <p class="eyebrow">02 · What We See</p>
               <h2 id="slide-title-3">In the demo, <span class="accent">criteria don't move together.</span></h2>
-              <p class="lede">A synthetic snapshot makes the multi-KPI story tangible: the share meeting each criterion varies, and the full scorecard is much more selective.</p>
+              <p class="lede">This synthetic snapshot demonstrates one way to explore a multi-KPI location dataset. Replace it with approved client evidence before drawing client-specific conclusions.</p>
             </div>
             <span class="section-tag">Synthetic sample · illustrative only</span>
           </div>
@@ -1286,36 +1344,36 @@
               <div class="sample-caveat">*Provisional rule thresholds; synthetic data only. This is a design prompt—not a client finding.</div>
             </aside>
           </div>
-          <div class="callout"><strong>What this snapshot cannot show:</strong><span>It has no incentive exposure, time series, experiment control group, or cost data—so it cannot establish adoption, change, causality, or ROI. Those require client-approved data and a fit-for-purpose design.</span></div>
+          <div class="callout"><strong>What this snapshot cannot show:</strong><span>It is a synthetic location-level sales example, not participant data and not representative of every industry or program. With no incentive exposure, time series, comparison group, or cost data, it cannot establish adoption, change, causality, or ROI.</span></div>
         </section>
 
         <section class="slide" id="slide-4" aria-labelledby="slide-title-4" hidden>
           <div class="section-heading">
             <div>
               <p class="eyebrow">03 · What We Believe Is Possible</p>
-              <h2 id="slide-title-4">Reward the <span class="accent">right mix of behavior.</span></h2>
-              <p class="lede">A multi-KPI design can make the intended outcome clearer, balance competing priorities, and create a learning loop—not just a payout rule.</p>
+              <h2 id="slide-title-4">Put investment where it can <span class="accent">change the outcome.</span></h2>
+              <p class="lede">Revenue is the north star. Sales volume, retention, and engagement help explain how a program may move it—and which participants or rewards merit investment.</p>
             </div>
             <span class="section-tag">Hypothesis · not a promise</span>
           </div>
           <div class="signal-grid">
             <article class="signal-card">
               <span class="signal-number">DESIGN HYPOTHESIS 01</span>
-              <h3>Align the scorecard</h3>
-              <p>If incentives reflect a balanced set of business priorities, participants may focus on a broader set of valuable behaviors.</p>
+              <h3>Learn what feels valuable</h3>
+              <p>Points and intrinsic-value redemptions, public recognition, sweepstakes, and winner experiences may motivate differently than cash. Treat each as a testable program hypothesis.</p>
             </article>
             <article class="signal-card">
               <span class="signal-number">DESIGN HYPOTHESIS 02</span>
-              <h3>Meet people where they are</h3>
-              <p>If support is relevant to a participant's starting point, the program may make the next best action easier to see.</p>
+              <h3>Move the middle; sustain the top</h3>
+              <p>Test which support helps middle-tier participants advance and what helps top performers sustain results. Do not assume top performers need rewards—or that lower performers will respond to the same lever.</p>
             </article>
             <article class="signal-card">
               <span class="signal-number">DESIGN HYPOTHESIS 03</span>
-              <h3>Learn and adapt</h3>
-              <p>If the program is measured deliberately, you can learn what works, for whom, and whether it is worth scaling.</p>
+              <h3>Allocate for incremental return</h3>
+              <p>Compare the incremental outcome and cost of alternative investments across segments before shifting budget or scaling a reward.</p>
             </article>
           </div>
-          <div class="callout"><strong>What must be true?</strong><span>Agree on the target outcomes, participant experience, eligibility rules, guardrails, and evidence needed to validate each hypothesis.</span></div>
+          <div class="callout"><strong>What must be true?</strong><span>Set incremental revenue as the primary outcome where appropriate; agree which retention, sales-volume, and engagement measures support it or act as guardrails. Do not combine KPIs into one score without client-approved weights, reward costs, and participant protections.</span></div>
         </section>
 
         <section class="slide" id="slide-5" aria-labelledby="slide-title-5" hidden>
@@ -1331,11 +1389,11 @@
             <article class="method-card"><span class="method-label">Understand change</span><h3>Pre / post analysis</h3><p>Establish what moved around a program or intervention—and what else may explain the change.</p></article>
             <article class="method-card"><span class="method-label">Find variation</span><h3>Cohort analysis</h3><p>See where response differs so a single average does not hide distinct participant needs.</p></article>
             <article class="method-card"><span class="method-label">Evaluate a claim</span><h3>Hypothesis testing</h3><p>Make assumptions explicit and assess whether the observed evidence supports them.</p></article>
-            <article class="method-card"><span class="method-label">Test an intervention</span><h3>A/B testing</h3><p>Compare a defined change with a suitable control when randomization and program conditions allow.</p></article>
+            <article class="method-card"><span class="method-label">Test fairly</span><h3>Practical experiments</h3><p>When approved, compare a reward or communication variation with clear, consistent eligibility. If individual randomization is not acceptable, consider a phased rollout or matched comparison and state its limits.</p></article>
             <article class="method-card"><span class="method-label">Guide action</span><h3>Decision dashboards</h3><p>Surface the measures, thresholds, and exceptions that help owners take the next step.</p></article>
-            <article class="method-card"><span class="method-label">Make it relevant</span><h3>Industry examples</h3><p>Use audience-specific scenarios to make program choices tangible without implying client results.</p></article>
+            <article class="method-card"><span class="method-label">Make it relevant</span><h3>Program-specific measures</h3><p>Fit the measures to the client: employee recognition and retention, sales growth, customer engagement, learning, or self-selected goals.</p></article>
           </div>
-          <div class="method-bridge"><span class="bridge-arrow" aria-hidden="true">→</span><div><strong>From analysis to decision support</strong><p>Predefine the question, comparison, success measure, and decision rule—then build the dashboard or experiment around them.</p></div></div>
+          <div class="method-bridge"><span class="bridge-arrow" aria-hidden="true">→</span><div><strong>Fairness is part of the design</strong><p>Start with client-approved, transparent rules and guardrails. A pilot can compare program options or rollout timing without changing core eligibility; use historical or matched comparisons when a controlled test is not approved.</p></div></div>
         </section>
 
         <section class="slide" id="slide-6" aria-labelledby="slide-title-6" hidden>
@@ -1350,7 +1408,7 @@
           <div class="learn-layout">
             <div class="learn-panel">
               <p class="eyebrow">Explore a learning lens</p>
-              <p>Select a question. The example is a planning prompt—not an analysis of this client's data.</p>
+              <p>Select a question. The example is a planning prompt—not an analysis of client data.</p>
               <div class="lens-list" role="group" aria-label="Select a learning lens">
                 <button class="lens-button" type="button" data-lens="response" aria-pressed="true"><span class="lens-number">01</span><span class="lens-name">Who responds?</span><span class="lens-arrow" aria-hidden="true">↗</span></button>
                 <button class="lens-button" type="button" data-lens="behavior" aria-pressed="false"><span class="lens-number">02</span><span class="lens-name">What changes behavior?</span><span class="lens-arrow" aria-hidden="true">↗</span></button>
@@ -1360,12 +1418,12 @@
             <div class="learn-result" aria-live="polite">
               <span class="result-label" id="lens-label">Learning question</span>
               <h3 id="lens-title">Does response differ by starting point?</h3>
-              <p id="lens-copy">Compare participant cohorts on the same KPI definitions and time windows. Look for meaningful differences, then validate whether the pattern is actionable.</p>
+              <p id="lens-copy">Compare middle-, upper-, and lower-performing participant cohorts on the same KPI definitions and time windows. Identify who moves, who sustains, and where support may be needed.</p>
               <div class="result-meta">
                 <div class="meta-row"><span>Evidence to plan for</span><strong id="lens-evidence">Baseline + cohort definitions + comparable periods</strong></div>
                 <div class="meta-row"><span>Decision it could inform</span><strong id="lens-decision">Where to focus the next intervention</strong></div>
               </div>
-              <div class="disclaimer">Illustrative only. The available sample data is synthetic and cannot establish client impact, causality, or ROI.</div>
+              <div class="disclaimer">Candidate insight to validate: recognition or meaningful redemption experiences may motivate more than cash alone. Confirm with client-approved participant and outcome data; the synthetic sample cannot establish impact, causality, or ROI.</div>
             </div>
           </div>
         </section>
@@ -1375,7 +1433,7 @@
             <div>
               <p class="eyebrow">06 · How We Turn Insights Into Outcomes</p>
               <h2 id="slide-title-7">Make the next action <span class="accent">part of the analysis.</span></h2>
-              <p class="lede">Select a step in the loop. Each one should have an owner, a measure, and a decision that follows.</p>
+              <p class="lede">Select a step in the loop. The program owner is accountable for action; executive sponsors help align investment and business priorities.</p>
             </div>
             <span class="section-tag">Insight → action → learning</span>
           </div>
@@ -1395,9 +1453,9 @@
             </div>
             <aside class="outcome-aside">
               <div>
-                <p class="eyebrow">The mic-drop moment</p>
-                <h3>Not just “what happened?”</h3>
-                <p>“Here is who has the opportunity, what we recommend doing, and how we will know whether it created value.”</p>
+                <p class="eyebrow">The opportunity to prove</p>
+                <h3>Find what actually moves engagement.</h3>
+                <p>“For this participant group, this reward or recognition approach changed the outcome by this much, at this cost—and here is what we recommend next.”</p>
               </div>
               <div><div class="aside-rule"></div><strong>Insight is the beginning of the work.</strong></div>
             </aside>
@@ -1416,15 +1474,15 @@
           <div class="next-grid">
             <div class="roadmap">
               <article class="roadmap-item"><span class="roadmap-index">01</span><div><strong>Align on the business question</strong><p>Choose the outcome, participant audience, and decision the pilot should inform.</p></div></article>
-              <article class="roadmap-item"><span class="roadmap-index">02</span><div><strong>Confirm data and measures</strong><p>Review approved inputs, KPI definitions, baselines, comparison design, and guardrails.</p></div></article>
-              <article class="roadmap-item"><span class="roadmap-index">03</span><div><strong>Scope the pilot and investment</strong><p>Agree on roles, timing, test design, service cost, and transparent ROI assumptions.</p></div></article>
-              <article class="roadmap-item"><span class="roadmap-index">04</span><div><strong>Learn, then decide whether to scale</strong><p>Review measured outcomes and determine what to refine, expand, or stop.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">02</span><div><strong>Confirm data, measures, and fairness guardrails</strong><p>Agree on approved data, incremental outcome measures, participant protections, and a comparison approach clients can support.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">03</span><div><strong>Choose a low-friction first test</strong><p>Compare reward or recognition options, or use a phased rollout; preserve transparent eligibility and account for reward and delivery cost.</p></div></article>
+              <article class="roadmap-item"><span class="roadmap-index">04</span><div><strong>Let the program owner act on the evidence</strong><p>Review incremental results with the relevant HR, Growth, Marketing, or Finance sponsor; refine, scale, or stop the investment.</p></div></article>
             </div>
             <div class="decision-card">
               <div>
                 <p class="eyebrow">The decision to make together</p>
-                <h3>Which business outcome should we help you move first?</h3>
-                <p>That answer sets the data we need, the test we design, and the investment we can credibly scope.</p>
+                <h3>Which outcome and participant group should we learn about first?</h3>
+                <p>Start with incremental revenue, agree how retention and engagement contribute, then choose a fair comparison and the program owner who can act on the result.</p>
               </div>
               <div>
                 <button class="primary-button" type="button" id="restart-button">Start the conversation <span aria-hidden="true">↗</span></button>
@@ -1563,21 +1621,21 @@
       const lensContent = {
         response: {
           title: "Does response differ by starting point?",
-          copy: "Compare participant cohorts on the same KPI definitions and time windows. Look for meaningful differences, then validate whether the pattern is actionable.",
-          evidence: "Baseline + cohort definitions + comparable periods",
-          decision: "Where to focus the next intervention"
+          copy: "Compare middle-, upper-, and lower-performing cohorts over consistent periods. Learn who advances, who sustains performance, and which groups may need a different kind of support.",
+          evidence: "Baseline + agreed cohort definitions + comparable periods",
+          decision: "Where to focus support and how to protect sustained performance"
         },
         behavior: {
-          title: "Which intervention changes the next action?",
-          copy: "Form a testable hypothesis, choose a fair comparison, and measure the behavior and business KPI the intervention is intended to influence.",
-          evidence: "Intervention design + control or comparison + success measure",
-          decision: "Which incentive or support to test next"
+          title: "Which reward or recognition changes engagement?",
+          copy: "Compare approved options such as points, meaningful redemption, public recognition, or winner experiences. Measure engagement and the intended business outcome rather than assuming a preferred reward works.",
+          evidence: "Reward exposure + participant response + agreed outcome measure",
+          decision: "Which program feature to refine or test next"
         },
         economics: {
-          title: "Does the measured value justify the investment?",
-          copy: "Model the cost and potential value with client-approved inputs. Track actual results against the baseline before making a scale decision.",
-          evidence: "Service and reward costs + incremental outcomes + agreed assumptions",
-          decision: "Whether to refine, scale, or stop the pilot"
+          title: "Where does the next incentive dollar create lift?",
+          copy: "Compare incremental outcomes and full reward and delivery costs across participant segments. Top performers may already succeed without added incentives; lower performers may need a different intervention.",
+          evidence: "Baseline + comparable groups + reward and delivery costs",
+          decision: "Where to shift, sustain, or withhold program investment"
         }
       };
 
@@ -1585,6 +1643,7 @@
         button.addEventListener("click", () => {
           document.querySelectorAll(".lens-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
           const content = lensContent[button.dataset.lens];
+          document.querySelector("#lens-label").textContent = button.dataset.lens === "behavior" ? "Candidate hypothesis" : "Learning question";
           document.querySelector("#lens-title").textContent = content.title;
           document.querySelector("#lens-copy").textContent = content.copy;
           document.querySelector("#lens-evidence").textContent = content.evidence;
